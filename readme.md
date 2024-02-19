@@ -5,7 +5,7 @@
 # Documents
 We will ask questions on two document:
 - `CLI_AR.pdf`: Real Estate 2022 Annual Report by CAPITALAND INVESTMENT LIMITED
-- `ML.md`: a Markdown document that we will use for Markdown Header Text Splitter
+- `ML.md`: a Markdown document on ML studying material that we will use for Markdown Header Text Splitter
 
 # ```wcd_rrf2.ipynb```
 For the manually developed RRF, we are loading a CSV. We first process the csv with a preprocessing pipeline.
