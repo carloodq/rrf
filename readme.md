@@ -1,6 +1,6 @@
 # Notebooks
 - ```wcd_rrf2.ipynb``` is a manually implemented version of the algorithm
-- ```wcd_fusion.ipynb``` is been implemented using Weaviate library that implements a fusion algorithm
+- ```wcd_fusion.ipynb``` is been implemented using Weaviate library for fusion algorithm
 
 # Documents
 We will ask questions on three documents:
@@ -25,23 +25,22 @@ We use Chroma for search and vector store and OpenAI for embeddings.
 Fusion algorithm implemented on Weaviate library.
 
 ## What is RAG Fusion?
-RAG Fusion is a technique for generating search results, in an information retrieval sistem. Differently from simple RAG, we use reciprocal rank fusion (RRF), which is technique used to combine multiples retrieval algorithm in a single search. For example we can use both a vector based and a keyword based search.
-Specifically in RRF, to obtain the final ranking of a given document we sum the reciprocals of the rank numbers of a document across of the different methods.
+RAG Fusion is a technique for generating search results, in an information retrieval system. Differently from simple sematic search, we use reciprocal rank fusion (RRF), which is technique used to combine multiples retrieval algorithms. For example we can use both a vector based and a keyword based search.
+Specifically in RRF, to obtain the final ranking of a given document we sum the reciprocals of the ranks of a document across the different methods.
 For instance if document A has rank 3 with BM25 (keyword search) and rank 5 with vector similarity search, the final rank will be
 1/3 + 1/5 = 0.53
 This way we take advantage of different search characteristic at once.
 
 ## What is chunking and which chunking strategy do we use ?
-In terms of chunking strategy we are using recursive chunking. 
+In terms of chunking strategy we are using different methods, starting with recursive chunking. 
 The separators are : "\n\n", "\n", " ", ""
-This means that first we split the text in chunks on "\n\n". The resulting chunks are in turn split on the following separators, until each chunk size is at least smaller than the predefined maximum chunk size. If the splitting results in chunks that are smaller than the predefined minumum size, they will be then merged back. 
-The advantage of recursive chunking is that usually this way we have a more logical separation, following also the structure decided by the authors.
+This means that we first split the text in chunks on "\n\n". The resulting chunks are in turn split on the following separators, until each chunk size is at least smaller than the predefined maximum chunk size. If the splitting results in chunks that are smaller than the predefined minumum size, they will be then merged back. 
+The advantage of recursive chunking is that this way we have a more logical separation, following also the structure decided by the authors.
 
 
 ## Other strategies?
-Character text splitter would be the most basic chunking strategy, where we just define a sliding window size and overlap. 
-We are also trying with a markdown document. We use the markdown splitter, which separates chunks based on where the headers are. This method could then in turn be combined with a simple recursive splitter on the internal chunks.
-We are going to experiment with different strategies and assess the one that provide the best results.
+For `test.json` we are giong to deal with individual contracts. They will be loaded in json. The context will be chunked with Character Text Splitting to answer the predefined questions.
+We are also going to load a markdown document. We use the markdown splitter, which separates chunks based on where the headers are. This method could then in turn be combined with a simple recursive splitter on the internal chunks.
 
 
 ## How do we extract keywords for the fusion pipeline?
@@ -65,6 +64,6 @@ Keywords for the chunk, extracted eg with YAKE
 ## How does the search function work ?
 When we setup the search function we can set specific parameters.
 Alpha is the balance between the vector and the keyword search results.
-In terms of number of results, we could get a specified number (limit argument) or we want to return the whole group of more relevant results. In this case we the the auto_limit, which specifies how many jumps we want in the similarity of the results.
+In terms of number of results, we could retrieve a specified number (limit argument) or the whole group of most relevant results. In this last case we set **auto_limit**, which specifies how many *jumps* we want in the similarity of the results.
 
 
