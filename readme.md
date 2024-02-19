@@ -3,7 +3,8 @@
 - ```wcd_fusion.ipynb``` is been implemented using Weaviate library that implements a fusion algorithm
 
 # Documents
-We will ask questions on two document:
+We will ask questions on three documents:
+- `test.json`:  dataset collecting commercial contracts (CUAD) - we will use it in ```wcd_rrf2.ipynb```. It also contains manually annotated Q&As which could be used for testing 
 - `CLI_AR.pdf`: Real Estate 2022 Annual Report by CAPITALAND INVESTMENT LIMITED
 - `ML.md`: a Markdown document on ML studying material that we will use for Markdown Header Text Splitter
 
